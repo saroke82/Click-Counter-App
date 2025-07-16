@@ -1,1 +1,54 @@
 
+// Project: Click Counter App (React 18 using Vite)
+
+// ------------------- // File: index.html // -------------------
+
+<!DOCTYPE html><html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Click Counter App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>// ------------------- // File: src/main.jsx // ------------------- import React from 'react' import ReactDOM from 'react-dom/client' import App from './App'
+
+ReactDOM.createRoot(document.getElementById('root')).render( <React.StrictMode> <App /> </React.StrictMode> )
+
+// ------------------- // File: src/App.jsx // ------------------- import React, { useState } from 'react'; import './App.css';
+
+function App() { const [count, setCount] = useState(0); const limit = 10;
+
+const increase = () => { if (count < limit) { setCount(prev => prev + 1); } };
+
+const decrease = () => { if (count > 0) { setCount(prev => prev - 1); } };
+
+return ( <div className="container"> <h1>Click Counter</h1> <p className="count">Count: {count}</p> {count === limit && <p className="limit">You've reached the limit!</p>} <div className="buttons"> <button onClick={increase}>Increase</button> <button onClick={decrease}>Decrease</button> </div> </div> ); }
+
+export default App;
+
+// ------------------- // File: src/App.css // ------------------- body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: #f5f5f5; display: flex; justify-content: center; align-items: center; height: 100vh; }
+
+.container { text-align: center; background-color: #ffffff; padding: 30px 40px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+
+h1 { color: #333; margin-bottom: 20px; }
+
+.count { font-size: 2rem; margin-bottom: 10px; color: #4a90e2; }
+
+.limit { color: red; margin-bottom: 10px; font-weight: bold; }
+
+.buttons button { padding: 10px 20px; font-size: 1rem; margin: 0 10px; cursor: pointer; border: none; border-radius: 5px; transition: background 0.3s; }
+
+.buttons button:first-child { background-color: #4caf50; color: white; }
+
+.buttons button:last-child { background-color: #f44336; color: white; }
+
+.buttons button:hover { opacity: 0.9; }
+
+// ------------------- // File: package.json (partial) // ------------------- { "name": "click-counter-app", "version": "0.0.0", "private": true, "scripts": { "dev": "vite", "build": "vite build", "preview": "vite preview" }, "dependencies": { "react": "^18.0.0", "react-dom": "^18.0.0" }, "devDependencies": { "vite": "^5.0.0", "@vitejs/plugin-react": "^4.0.0" } }
+
+// ------------------- // File: vite.config.js // ------------------- import { defineConfig } from 'vite' import react from '@vitejs/plugin-react'
+
+export default defineConfig({ plugins: [react()], })
